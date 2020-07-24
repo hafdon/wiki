@@ -1,0 +1,2 @@
+# wiki
+Information about computrons
