@@ -41,7 +41,20 @@ union
 select *
 from new_row;
 ```
-
+### create or replace table returns datatype
+```sql
+create or replace function compareEeId(int, int) returns boolean as $$ begin return (
+    select g.id
+    from g_ids g
+    where $1 in (g.g_id, g.ee_id)
+  ) = (
+    select g.id
+    from g_ids g
+    where $2 in (g.g_id, g.ee_id)
+  );
+end;
+$$ language plpgsql immutable strict;
+```
 
 ## hr database
 
