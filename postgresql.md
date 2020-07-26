@@ -8,6 +8,19 @@ create unique index <index_name> on <table> (<column a>)
 where <column b that can only be null once per column a in table> is null;
 ```
 
+### pass json params
+```sql
+with p as (
+    select *
+    from json_to_record($1::json) as x(identifier text, suggestion_id int)
+),
+params as (
+    select identifier::text,
+        suggestion_id::int
+    from p
+),
+```
+
 ### upsert logic flow
 ```sql
 with p as (
