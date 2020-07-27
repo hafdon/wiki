@@ -2,6 +2,32 @@
 
 ## general postgresql
 
+### get column information
+```sql
+
+
+SELECT *
+  FROM information_schema.columns
+ WHERE table_schema = 'your_schema'
+   AND table_name   = 'your_table'
+     ;
+
+
+select
+  column_name || ','
+from information_schema.columns
+where
+  table_schema = 'collection_schema'
+  and table_name = 'withdrawals';
+  --   --
+select
+  '$' || row_number() over() || ','
+from information_schema.columns
+where
+  table_schema = 'collection_schema'
+  and table_name = 'withdrawals';
+```
+
 ### create a unique index : max one null per x
 ```sql
 create unique index <index_name> on <table> (<column a>)
