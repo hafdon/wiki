@@ -159,4 +159,18 @@ with a as (
 select g.name_upper, a.*
 from a, g_ids g where to_fy_id is null and g.g_id = a.ee_id order by a.ee_id;
 ```
-### 
+
+## sierra dna (iii database)
+
+### -- isn search on phrase_entry
+
+```sql
+SELECT
+id2reckey(e.record_id)
+FROM
+sierra_view.phrase_entry as e
+WHERE
+e.index_tag || e.index_entry = 'i' || LOWER('9780525658351');
+```
+
+
