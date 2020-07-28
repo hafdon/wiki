@@ -10,7 +10,7 @@ The library is electing not to make that purchase at this time because the title
 
 ## ILL
 
-You may ask library staff to borrow this title for you [through Interlibrary Loan](http://jmrl.org/ill.php) (a \$3 fee applies)
+You may ask library staff to borrow this title for you through Interlibrary Loan (http://jmrl.org/ill.php) (a \$3 fee applies)
 
 ## prepub
 
