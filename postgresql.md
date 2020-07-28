@@ -162,7 +162,9 @@ from a, g_ids g where to_fy_id is null and g.g_id = a.ee_id order by a.ee_id;
 
 ## sierra dna (iii database)
 
-### -- isn search on phrase_entry
+### -- isn search on phrase_entry table
+
+Queries must take the form seen below in order to take advantage of the phrase_entry indexes / optimizations.
 
 ```sql
 SELECT
