@@ -80,7 +80,7 @@ union
 select *
 from new_row;
 ```
-### create or replace table returns datatype
+### create or replace function returns datatype
 ```sql
 create or replace function compareEeId(int, int) returns boolean as $$ begin return (
     select g.id
@@ -95,7 +95,7 @@ end;
 $$ language plpgsql immutable strict;
 ```
 
-### create or replace table returns table row
+### create or replace function returns table row
 ```sql
 create or replace function upsert_carryover (
         f_id int,
