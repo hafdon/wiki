@@ -2,6 +2,9 @@
 
 ## general postgresql
 
+## getting function information
+https://stackoverflow.com/questions/6898453/how-to-display-the-function-procedure-triggers-source-code-in-postgresql
+
 ### get column information
 ```sql
 
