@@ -5,6 +5,13 @@
 ## getting function information
 https://stackoverflow.com/questions/6898453/how-to-display-the-function-procedure-triggers-source-code-in-postgresql
 
+## show prepared statement for session
+```sql
+select * from pg_catalog.pg_prepared_statements ;
+
+\d pg_catalog.pg_prepared_statements -- << can also use \d with it
+```
+
 ### get column information
 ```sql
 
