@@ -2,10 +2,15 @@
 
 ## general postgresql
 
-## getting function information
+### getting function information
 https://stackoverflow.com/questions/6898453/how-to-display-the-function-procedure-triggers-source-code-in-postgresql
 
-## show prepared statement for session
+### outputting the results of a query to a file using cli
+```sql
+pg -U colladmin collection -c "\copy (select barcode from collection_schema.scans where delete_date::date = now()::date) to '~/ttt.csv' with (FORMAT CSV)"
+```
+
+### show prepared statements for session
 ```sql
 select * from pg_catalog.pg_prepared_statements ;
 
