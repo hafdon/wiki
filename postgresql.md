@@ -5,9 +5,14 @@
 ### getting function information
 https://stackoverflow.com/questions/6898453/how-to-display-the-function-procedure-triggers-source-code-in-postgresql
 
+### backing up and encrypting by database with pg_dump
+https://www.imagescape.com/blog/2015/12/18/encrypted-postgres-backups/
+
 ### outputting the results of a query to a file using cli
 ```sql
-pg -U colladmin collection -c "\copy (select barcode from collection_schema.scans where delete_date::date = now()::date) to '~/ttt.csv' with (FORMAT CSV)"
+pg -U colladmin collection -c "\copy 
+(select barcode from collection_schema.scans where delete_date::date = now()::date) 
+to '~/ttt.csv' with (FORMAT CSV)"
 ```
 
 ### show prepared statements for session
