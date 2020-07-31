@@ -2,6 +2,64 @@
 
 ## general postgresql
 
+### foreign table wrapper
+
+```sql
+set
+  role postgres;
+CREATE EXTENSION postgres_fdw with schema iii_fs_schema;
+create server iii_fs_server foreign data wrapper postgres_fdw options (
+    host '34.231.47.190',
+    dbname 'iii',
+    port '1032'
+  );
+alter server iii_fs_server owner to iii_fs_admin;
+create user mapping for iii_fs_admin server iii_fs_server options (user 'zaw2', password 'f@ulkner');
+set
+  role iii_fs_admin;
+import foreign schema sierra_view
+limit
+  to (circ_trans, hold, item_circ_history, checkout)
+from
+  server iii_fs_server into iii_fs_schema;
+--
+  --
+  --
+  create table iii_fs_audit_schema.checkout_audit (
+    operation varchar(1),
+    stamp timestamptz,
+    patron_record_id bigint,
+    item_record_id bigint,
+    checkout_gmt timestamp,
+    ptype int2
+  );
+--
+  --
+  --
+  CREATE
+  OR REPLACE FUNCTION process_checkout_audit() RETURNS trigger AS $BODY$ BEGIN IF (TG_OP = 'INSERT') THEN
+INSERT INTO
+  iii_fs_audit_schema.checkout_audit
+SELECT
+  'I',
+  now(),
+  new.patron_record_id,
+  new.item_record_it,
+  new.checkout_gmt,
+  new.ptype;
+RETURN NEW;
+END IF;
+RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+--
+--
+CREATE TRIGGER checkout_audit
+AFTER
+INSERT
+  on iii_fs_schema.checkout FOR EACH ROW EXECUTE PROCEDURE process_checkout_audit();
+```
+
 ### getting function information
 https://stackoverflow.com/questions/6898453/how-to-display-the-function-procedure-triggers-source-code-in-postgresql
 
