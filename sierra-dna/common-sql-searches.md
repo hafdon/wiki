@@ -1,44 +1,5 @@
-# Sierra DNA
+# Notes
 
-## Common SQL Searches
+JMRL maintains a repo of postgresql queries to the SierraDNA database in the https://github.com/jmrlib/sierra-dna-sql repo.
 
-### Returns a list of barcodes where two or more item records exist with that barcode
-
-```sql
-with b as (
-select barcode, count(*) 
-
- from sierra_view.item_record_property 
-
- group by barcode
- ), c as( select barcode from b where count > 1 and barcode is not null and barcode != '')
-
-, one_bib_or_two as (
- select i.barcode, count(*) from c, sierra_view.item_record_property i , sierra_view.bib_record_item_record_link link
-
- where 
- i.item_record_id = link.item_record_id and 
-
- i.barcode = c.barcode
-
- group by i.barcode, link.bib_record_id
-
- order by count
-
- )
-
- select o.barcode, o.count, 
-sum (
-case when i.inventory_gmt is null
-then 0
-else 1
-end) as inva_count
-
-  from one_bib_or_two o, sierra_view.item_view i
-
- where o.barcode = i.barcode
-
- group by o.barcode, o.count 
-
- having count > 1;
- ```
+Documentation may be available as inline text in the relevant query or as markdown files within the folder structure.
