@@ -1,6 +1,6 @@
 # boilerplate
 
-Unfortunately that title is unavailable to purchase through the approved vendors.
+Unfortunately that title is unavailable to purchase through the approved vendors. You may ask library staff to borrow this title for you through Interlibrary Loan (http://jmrl.org/ill.php) (a $3 fee applies)
 
 Unfortunately that title is no longer being published.
 
