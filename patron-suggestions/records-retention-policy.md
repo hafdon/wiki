@@ -1,5 +1,9 @@
 # Patron Suggestions Records Retention Policy
 
+## Statistics Retention
+
+1. Before deleting digital records, statistics should be generated compiling total numbers on suggestions received, responded to, approved, rejected, etc.
+
 ## Digital Records
 
 1. At the beginning of each quarter, digital records which are more than one year old are to be deleted. This includes:
