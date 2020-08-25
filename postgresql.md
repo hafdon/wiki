@@ -238,6 +238,14 @@ select g.name_upper, a.*
 from a, g_ids g where to_fy_id is null and g.g_id = a.ee_id order by a.ee_id;
 ```
 
+### show permissions on tables
+
+```sql
+hr=# SELECT grantee, privilege_type 
+hr-# FROM information_schema.role_table_grants 
+hr-# WHERE table_name='leaveslips_view';
+```
+
 ## sierra dna (iii database)
 
 ### -- isn search on phrase_entry table
