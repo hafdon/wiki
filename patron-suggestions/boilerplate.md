@@ -18,6 +18,10 @@ This title has not yet been published. It is due for publication on 3/3/2020. Yo
 
 This title is due for publication on 10/01/2019, and your request is being reviewed.
 
+## local voices
+
+Thank you for suggesting that the library include Emily & Hilda [Print] by Hine, J. T. Sorry for the delay in response! We surmise that the author of this book is local since the names match? - are they aware of - and would they be willing to donate a copy to - the Library's Local Voices collection? Information about this opportunity to showcase local authors is here: JMRL Local Voices.
+
 ## wishlist
 
 This title has been placed on the library wishlist where it may be purchased in the future.
