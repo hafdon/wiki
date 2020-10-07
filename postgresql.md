@@ -173,6 +173,27 @@ end;
 $$ language plpgsql immutable strict;
 ```
 
+### create or replace function returns table row and references parameters
+```sql
+create or replace function hr_api.insert_eeid(
+    name_upper text,
+    ee_id int,
+    email text,
+    initials text
+  ) returns setof g_ids as $$ begin return query
+insert into g_ids (name_upper, g_id, ee_id, email, initials)
+values (
+    insert_eeid.name_upper,
+    insert_eeid.ee_id,
+    insert_eeid.ee_id,
+    insert_eeid.email,
+    insert_eeid.initials
+  )
+returning *;
+end;
+$$ language plpgsql;
+```
+
 ### create or replace function returns table row
 ```sql
 create or replace function upsert_carryover (
