@@ -1,3 +1,14 @@
+## Steps
+- Paste the following into the script file and save the file with an appropriate name.
+- Then click "Edit" -> "Current Project's Triggers"
+- You will be taken to a new tab/window.
+- Click "Add Trigger" at the bottom right and fill out like this:
+  - Choose which function to run: onFormSubmit
+  - Choose which deploytment should run: Head
+  - Select event source: From form
+  - Select event type: On form submit
+- Save
+
 ```javascript
 
 function onFormSubmit(e) {
