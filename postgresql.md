@@ -172,6 +172,8 @@ create or replace function compareEeId(int, int) returns boolean as $$ begin ret
 end;
 $$ language plpgsql immutable strict;
 ```
+#### if having problems returning after using data modifying cte, 
+- see: https://stackoverflow.com/questions/47988816/with-clause-containing-a-data-modifying-statement-must-be-at-the-top-level-sql-s
 
 ### create or replace function returns table row and references parameters
 ```sql
