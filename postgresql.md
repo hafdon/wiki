@@ -283,5 +283,8 @@ sierra_view.phrase_entry as e
 WHERE
 e.index_tag || e.index_entry = 'i' || LOWER('9780525658351');
 ```
-
+## ERROR: functions in index expression must be marked IMMUTABLE in Postgres
+```sql
+create index on <<schema>>.<<table>> ( date(timezone('UTC', <<column_name>>) ));
+```
 
