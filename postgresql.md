@@ -288,3 +288,25 @@ e.index_tag || e.index_entry = 'i' || LOWER('9780525658351');
 create index on <<schema>>.<<table>> ( date(timezone('UTC', <<column_name>>) ));
 ```
 
+You will have to construct your queries something like this to take advantage of it:  
+- (just doing `scan_date::date` isn't going to use the index)
+
+```sql
+collection=>   explain analyze verbose select * from scans where date(timezone('UTC', scan_date)) = (now()::date) ;
+                                                           QUERY PLAN                                         
+                  
+--------------------------------------------------------------------------------------------------------------
+------------------
+ Bitmap Heap Scan on collection_schema.scans  (cost=5.73..293.81 rows=185 width=43) (actual time=0.125..0.193 
+rows=122 loops=1)
+   Output: id, barcode, user_id, scan_date, location, notes, ssp, delete_date
+   Recheck Cond: (date(timezone('UTC'::text, scans.scan_date)) = (now())::date)
+   Heap Blocks: exact=2
+   ->  Bitmap Index Scan on scans_date_idx  (cost=0.00..5.68 rows=185 width=0) (actual time=0.106..0.106 rows=
+122 loops=1)
+         Index Cond: (date(timezone('UTC'::text, scans.scan_date)) = (now())::date)
+ Planning Time: 0.156 ms
+ Execution Time: 0.258 ms
+(8 rows)
+```
+
