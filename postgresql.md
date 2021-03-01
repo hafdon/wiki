@@ -2,6 +2,27 @@
 
 ## general postgresql
 
+## join lateral
+(apparently fixes subquery returned more than 1 row error)
+https://dba.stackexchange.com/questions/97903/call-function-where-argument-is-a-subselect-statement
+
+The modern syntax for this (Postgres 9.3+) would be a LATERAL join:
+
+```sql
+SELECT f.* 
+FROM   tableX t, test_function(t.customerid) f
+WHERE  t.id = 1;
+```
+
+Which is short syntax for:
+
+```sql
+SELECT f.* 
+FROM   tableX t
+CROSS  JOIN LATERAL test_function(t.customerid) f
+WHERE  t.id = 1;
+```
+
 ### foreign table wrapper
 
 ```sql
