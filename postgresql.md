@@ -310,3 +310,9 @@ rows=122 loops=1)
 (8 rows)
 ```
 
+## get function names
+```sql
+SELECT format('%I.%I(%s)', ns.nspname, p.proname, oidvectortypes(p.proargtypes)) 
+FROM pg_proc p INNER JOIN pg_namespace ns ON (p.pronamespace = ns.oid)
+where ns.nspname = 'hr_api';
+```
