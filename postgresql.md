@@ -2,6 +2,55 @@
 
 ## general postgresql
 
+## get table name
+https://www.postgresql.org/docs/11/ddl-inherit.html
+
+Writing \* is not necessary, since this behavior is always the default. However, this syntax is still supported for compatibility with older releases where the default could be changed.
+
+In some cases you might wish to know which table a particular row originated from. There is a system column called tableoid in each table which can tell you the originating table:
+
+```postgresql
+SELECT c.tableoid, c.name, c.altitude
+FROM cities c
+WHERE c.altitude > 500;
+which returns:
+```
+
+| tableoid | name      | altitude |
+| -------- | --------- | -------- |
+| 139793   | Las Vegas | 2174     |
+| 139793   | Mariposa  | 1953     |
+| 139798   | Madison   | 845      |
+
+(If you try to reproduce this example, you will probably get different numeric OIDs.) By doing a join with pg_class you can see the actual table names:
+
+```postgresql
+SELECT p.relname, c.name, c.altitude
+FROM cities c, pg_class p
+WHERE c.altitude > 500 AND c.tableoid = p.oid;
+```
+
+which returns:
+
+| relname  | name      | altitude |
+| -------- | --------- | -------- |
+| cities   | Las Vegas | 2174     |
+| cities   | Mariposa  | 1953     |
+| capitals | Madison   | 845      |
+
+
+## adding sequence to existing table
+
+```sql
+iii_fs_db = >
+alter table item_code_audit
+alter column
+  id
+set
+  default nextval('item_code_audit_id_seq');
+ALTER TABLE
+```
+
 ## join lateral
 (apparently fixes subquery returned more than 1 row error)
 https://dba.stackexchange.com/questions/97903/call-function-where-argument-is-a-subselect-statement
