@@ -2,6 +2,13 @@
 
 ## general postgresql
 
+## adding to search_path without having to type it all out
+
+```sql
+iii_fs_db=> SELECT current_setting('search_path') AS my_path \gset
+iii_fs_db=> set search_path to iii_fs_view, :my_path;
+```
+
 ## get table name
 https://www.postgresql.org/docs/11/ddl-inherit.html
 
