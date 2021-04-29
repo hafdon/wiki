@@ -112,6 +112,30 @@ return {
 ### Prototype Pattern
 
 ### Command Pattern
+- decouple objects invoking actions from objects implemention actions (easier to swap out classes)
+  - separate issuing commands from executing commands ?
+- all Command objects with the same interface can be swapped as needed
+- this is kind of how Vue `dispatch` and `commit` work
+  ```js
+    CarManager.execute("arrangeViewing", "Ferrari", "14523");
+    CarManager.execute("requestInfo", "Ford Mondeo", "54323");
+    CarManager.execute("requestInfo", "Ford Escort", "34232");
+    CarManager.execute("buyVehicle", "Ford Escort", "34232");
+    ```
+### Facade Pattern
+- simplifies the presented API
+  - simplifies class interface
+  - decouples class from code that uses it
+- examples he presents are primarily about performing OS checks, checking for null vals (kind of like how they recommend using Proxies?)
+  - "consume a feature without worrying about implementation details"
+
+#### Module Pattern + Facade Pattern
+
+### Factory Pattern
+- lets you create objects without having to specify the exact class of object being created
+- do: define interface for creating an object; the subclasses decide which class to instantiate
+  - that is, subclasses can override the object-creation method to specify the type of factory product
+  - quite useful if creation processis complex / depends on settings
 
 ## Creational
 - Based on the concept of creating an object.
