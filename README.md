@@ -1,2 +1,2 @@
 # wiki
-Information about computrons
+Information about Collection Specialist, Hr Specialist, and [computer] programming.

@@ -2,6 +2,83 @@
 
 ## general postgresql
 
+## adding to search_path without having to type it all out
+
+```sql
+iii_fs_db=> SELECT current_setting('search_path') AS my_path \gset
+iii_fs_db=> set search_path to iii_fs_view, :my_path;
+```
+
+## get table name
+https://www.postgresql.org/docs/11/ddl-inherit.html
+
+Writing \* is not necessary, since this behavior is always the default. However, this syntax is still supported for compatibility with older releases where the default could be changed.
+
+In some cases you might wish to know which table a particular row originated from. There is a system column called tableoid in each table which can tell you the originating table:
+
+```postgresql
+SELECT c.tableoid, c.name, c.altitude
+FROM cities c
+WHERE c.altitude > 500;
+which returns:
+```
+
+| tableoid | name      | altitude |
+| -------- | --------- | -------- |
+| 139793   | Las Vegas | 2174     |
+| 139793   | Mariposa  | 1953     |
+| 139798   | Madison   | 845      |
+
+(If you try to reproduce this example, you will probably get different numeric OIDs.) By doing a join with pg_class you can see the actual table names:
+
+```postgresql
+SELECT p.relname, c.name, c.altitude
+FROM cities c, pg_class p
+WHERE c.altitude > 500 AND c.tableoid = p.oid;
+```
+
+which returns:
+
+| relname  | name      | altitude |
+| -------- | --------- | -------- |
+| cities   | Las Vegas | 2174     |
+| cities   | Mariposa  | 1953     |
+| capitals | Madison   | 845      |
+
+
+## adding sequence to existing table
+
+```sql
+iii_fs_db = >
+alter table item_code_audit
+alter column
+  id
+set
+  default nextval('item_code_audit_id_seq');
+ALTER TABLE
+```
+
+## join lateral
+(apparently fixes subquery returned more than 1 row error)
+https://dba.stackexchange.com/questions/97903/call-function-where-argument-is-a-subselect-statement
+
+The modern syntax for this (Postgres 9.3+) would be a LATERAL join:
+
+```sql
+SELECT f.* 
+FROM   tableX t, test_function(t.customerid) f
+WHERE  t.id = 1;
+```
+
+Which is short syntax for:
+
+```sql
+SELECT f.* 
+FROM   tableX t
+CROSS  JOIN LATERAL test_function(t.customerid) f
+WHERE  t.id = 1;
+```
+
 ### foreign table wrapper
 
 ```sql
@@ -172,6 +249,8 @@ create or replace function compareEeId(int, int) returns boolean as $$ begin ret
 end;
 $$ language plpgsql immutable strict;
 ```
+#### if having problems returning after using data modifying cte, 
+- see: https://stackoverflow.com/questions/47988816/with-clause-containing-a-data-modifying-statement-must-be-at-the-top-level-sql-s
 
 ### create or replace function returns table row and references parameters
 ```sql
@@ -281,5 +360,36 @@ sierra_view.phrase_entry as e
 WHERE
 e.index_tag || e.index_entry = 'i' || LOWER('9780525658351');
 ```
+## ERROR: functions in index expression must be marked IMMUTABLE in Postgres
+```sql
+create index on <<schema>>.<<table>> ( date(timezone('UTC', <<column_name>>) ));
+```
 
+You will have to construct your queries something like this to take advantage of it:  
+- (just doing `scan_date::date` isn't going to use the index)
 
+```sql
+collection=>   explain analyze verbose select * from scans where date(timezone('UTC', scan_date)) = (now()::date) ;
+                                                           QUERY PLAN                                         
+                  
+--------------------------------------------------------------------------------------------------------------
+------------------
+ Bitmap Heap Scan on collection_schema.scans  (cost=5.73..293.81 rows=185 width=43) (actual time=0.125..0.193 
+rows=122 loops=1)
+   Output: id, barcode, user_id, scan_date, location, notes, ssp, delete_date
+   Recheck Cond: (date(timezone('UTC'::text, scans.scan_date)) = (now())::date)
+   Heap Blocks: exact=2
+   ->  Bitmap Index Scan on scans_date_idx  (cost=0.00..5.68 rows=185 width=0) (actual time=0.106..0.106 rows=
+122 loops=1)
+         Index Cond: (date(timezone('UTC'::text, scans.scan_date)) = (now())::date)
+ Planning Time: 0.156 ms
+ Execution Time: 0.258 ms
+(8 rows)
+```
+
+## get function names
+```sql
+SELECT format('%I.%I(%s)', ns.nspname, p.proname, oidvectortypes(p.proargtypes)) 
+FROM pg_proc p INNER JOIN pg_namespace ns ON (p.pronamespace = ns.oid)
+where ns.nspname = 'hr_api';
+```
