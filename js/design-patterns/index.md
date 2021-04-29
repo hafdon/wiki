@@ -1,8 +1,59 @@
-# 
+# Javscript Design Patterns
 
-Creational Based on the concept of creating an object.
-Class
-Factory Method This makes an instance of several derived classes based on interfaced
+## Implementations
+
+### Creational Pattern
+
+### Constructor Pattern
+- Basic Constructors
+- Constructors with Prototypes
+
+### Singleton Pattern
+- object literal with related methods and properties
+- [[previous]], encapsulating 'private' ones inside a function closure and returning [[previous]]
+- instatiate only when needed
+- emulating static methods?
+
+### Module Pattern
+
+#### Modules
+- Object Literals
+- Module Pattern
+  - uses object literals as return value from scoping function
+  - exposes (returns) public API / interface
+  
+  - consider defining a simple template (e.g. for namespacing, public, and private variables) ?
+  - doesn't using iife make this still a singleton?
+
+  - **disadvantages**
+    - when you wish to change visibility, you have to make changes to each place the member was used
+    - in methods that are added to the object at a later point, you can't access the private members coded originally
+    - can't create automated unit tests for private members
+    - complexity for bugs requiring hot fixes (you can't patch privates -- you would ahve to override all public methods that interact with the buggy privates)
+
+### Revealing Module Pattern
+- just like the Module Pattern, but for better readability you return an object literal where props are publicly accessible functions and variables
+```js
+return {
+// these all have to be objects and passed by value
+  set: setPerson,
+  get: getPerson
+}
+```
+- **disadvantages**
+  - if private function refers to public function, public function can't be overriden if patch is necessary (private function will continue to refer to private implementation)
+ 
+### Observer Pattern
+
+
+## Creational
+- Based on the concept of creating an object.
+
+
+
+### Class
+
+#### Factory Method This makes an instance of several derived classes based on interfaced
 data or events.
 Object
 Abstract Factory Creates an instance of several families of classes without detailing concrete classes.
