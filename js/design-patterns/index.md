@@ -75,7 +75,8 @@ return {
 - use case:
   - subscribe to an restapi endpoint, and then endpoint publishes notification and data whenever it's called?
     - we could have 10 different subscribers utilizing the data returned in different ways but as far as the Ajax-layer is concerned, it doesn't care. Its sole duty is to request and return data then pass it on to whoever wants to use it. This separation of concerns can make the overall design of your code a little cleaner.
-    ```js
+
+```js
         $.subscribe('/search/tags', function(tags){
           $.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?',
             { tags: tags, tagmode: 'any', format: 'json'},
@@ -86,6 +87,31 @@ return {
             });
          });
  ```
+
+### Mediator Pattern
+- "expose a unified interface _through which_ different parts of a system may communicate" ? -- so, a "controller" / switchboard?
+- promotes "loose coupling"
+- modules don't refer to each other explicitly
+- example given: more like traffic control system 
+- **implementation**: a shared subject(publisher) in the observer pattern
+  - e.g. binding to DOM events rather than individual component events
+  - **I don't understand the `context: this` bit**
+- use case:
+  - permissions management (mediator controls what messages can be subscribed to and which can be broadcast)
+- **disadvantages**
+  - introduce single point of failure
+  - performance hit (modules communicating indirectly)
+  - loose coupling systems are hard to predict their dehavior
+- **advantages**
+  - with tight coupling, if another module throws an exception, then that could have domino effect
+
+#### Mediator vs. Facade
+- mediator centralizes communication where explicitly referenced (multidirectional)
+- facade defines simpler interface to module or system, but doesn't add additional functionality (unidirectional)
+
+### Prototype Pattern
+
+### Command Pattern
 
 ## Creational
 - Based on the concept of creating an object.
