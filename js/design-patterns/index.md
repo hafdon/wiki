@@ -135,7 +135,19 @@ return {
 - lets you create objects without having to specify the exact class of object being created
 - do: define interface for creating an object; the subclasses decide which class to instantiate
   - that is, subclasses can override the object-creation method to specify the type of factory product
-  - quite useful if creation processis complex / depends on settings
+  - quite useful if 
+    - creation processis complex / depends on settings
+    - generate different instances depending on environment
+    - working with many small objects that share same properties
+    - composing classes with instanes of other classes that need only satisfy API contract (duck typing)
+- DON'T USE WHEN:
+  - will add too much complexity
+  - tests more difficult
+
+#### Abstract Factory Pattern
+- 
+
+
 
 ## Creational
 - Based on the concept of creating an object.
