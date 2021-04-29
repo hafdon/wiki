@@ -21,10 +21,7 @@
 - Module Pattern
   - uses object literals as return value from scoping function
   - exposes (returns) public API / interface
-  
-  - consider defining a simple template (e.g. for namespacing, public, and private variables) ?
-  - doesn't using iife make this still a singleton?
-
+  - (not sure why this isn't still a singleton when using IIFE)
   - **disadvantages**
     - when you wish to change visibility, you have to make changes to each place the member was used
     - in methods that are added to the object at a later point, you can't access the private members coded originally
@@ -44,7 +41,51 @@ return {
   - if private function refers to public function, public function can't be overriden if patch is necessary (private function will continue to refer to private implementation)
  
 ### Observer Pattern
-
+- aka **Publish/Subscribe** pattern
+- 'loose coupling'
+- possible because functions are first-order 
+- use cases
+  - maintain consistency between related objects without making classes tightly coupled
+  - where abstractions ahve more than one aspect, where one depends on the other (?)
+- **disadvantages**
+  - difficult to obtain guarantees that particular parts of application functioning as expected
+  - observers don't know about one another; switching in the publisher can be computationally expensive
+- sometimes **Mediators** are used with this:
+  - widet publishes topic. mediator subscribes to that topic. mediator calls relevant methods on other components.
+```js
+  var grid = {
+     refreshData: function(){
+     console.log('retrieved latest data from data cache');
+     console.log('updated grid component');
+   },
+     updateCounter: function(){
+     console.log('data last updated at: ' + getCurrentTime());
+   }
+  };
+  // a very basic mediator
+  var gridUpdate = function(topics, data){
+   grid.refreshData();
+   grid.updateCounter();
+  }
+  var dataSubscription = PubSub.subscribe( 'dataUpdated', gridUpdate );
+  PubSub.publish( 'dataUpdated', 'new stock data available!' );
+  PubSub.publish( 'dataUpdated', 'new stock data available!' );
+```
+- 'publication' still calls lthe callback, but the callback looks to a shared object or array or something for the actual information (i.e. "new data is available!" and the subscriber has to check it out itself?)
+- use case:
+  - subscribe to an restapi endpoint, and then endpoint publishes notification and data whenever it's called?
+    - we could have 10 different subscribers utilizing the data returned in different ways but as far as the Ajax-layer is concerned, it doesn't care. Its sole duty is to request and return data then pass it on to whoever wants to use it. This separation of concerns can make the overall design of your code a little cleaner.
+    ```js
+        $.subscribe('/search/tags', function(tags){
+          $.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?',
+            { tags: tags, tagmode: 'any', format: 'json'},
+            
+              function(data){
+              if(!data.items.length){ return; }
+                $.publish('/search/resultSet', [ data ]);
+            });
+         });
+ ```
 
 ## Creational
 - Based on the concept of creating an object.
