@@ -18,3 +18,5 @@ await dispatch(
   { root: true }
 )
 ```
+
+### scoped slots

@@ -1,0 +1,115 @@
+{
+  "main": {
+    "id": "d2666ae14b036b7c",
+    "type": "split",
+    "children": [
+      {
+        "id": "dc0216b30893a813",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "todo.md.md",
+            "mode": "source"
+          }
+        },
+        "group": "4b1956ca1ceb3fb8"
+      },
+      {
+        "id": "6427e1b5374c9dab",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "todo.md.md",
+            "mode": "preview"
+          }
+        },
+        "group": "4b1956ca1ceb3fb8"
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "fa2479c1d02ad816",
+    "type": "split",
+    "children": [
+      {
+        "id": "aab5d979f53b39ac",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7f9a57d4bca19830",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "7ad4228511b6cff1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 240
+  },
+  "right": {
+    "id": "4fbe18812b9e812a",
+    "type": "split",
+    "children": [
+      {
+        "id": "c3977c8422de4b07",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "293317f2d9d52f49",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "todo.md.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "dc0216b30893a813",
+  "lastOpenFiles": [
+    "todo.md.md",
+    "Untitled.md",
+    "component-events.md.md",
+    "vue/vue-store.md.md",
+    "vue/index.vue.md.md",
+    "composition-api.md",
+    "arrays.md",
+    "javascript/design-patterns/Untitled.md",
+    "javascript/design-patterns/index.md",
+    "javascript/javascript-coding-tips.md"
+  ]
+}
